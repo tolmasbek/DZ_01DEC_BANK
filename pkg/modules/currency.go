@@ -11,9 +11,9 @@ type CurrencyB struct {
 	Name string
 }
 
-func AddCurr(dataBase *sql.DB, currency CurrencyB)(err error){
+func AddCurr(dataBase *sql.DB, currency CurrencyB) (err error) {
 	_, err = dataBase.Exec(database.AddNewCurrency, currency.Name)
-	if err != nil{
+	if err != nil {
 		fmt.Println(err)
 	}
 	return

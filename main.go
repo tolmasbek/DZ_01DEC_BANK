@@ -18,8 +18,8 @@ func main() {
 	Start(db)
 }
 
-func Start(db *sql.DB){
-	for{
+func Start(db *sql.DB) {
+	for {
 		login, password, role := authorisation.Authorisation(db)
 		authorisation.UserAdmin(db, login, password, role)
 	}

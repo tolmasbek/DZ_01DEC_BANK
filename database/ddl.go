@@ -18,6 +18,7 @@ const CreateTableAccounts = `Create table if not exists accounts(
 	numberAccount 	integer not null,
 	amount 			integer not null,
 	currency 		integer references currency(id),
+	pin				integer not null unique,
 	remove 			boolean not null default false 
 );`
 

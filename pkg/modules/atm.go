@@ -20,4 +20,3 @@ func AddATM(dataBase *sql.DB, address string) (ok bool, err error) {
 	}
 	return true, nil
 }
-
