@@ -27,7 +27,7 @@ func AddNewUser(db *sql.DB, user User) (ok bool, err error){
 	return true, nil
 }
 
-func Login (database *sql.DB, login, password string){
+func ShowUser (database *sql.DB, login, password string){
 	var UserA User
 	_ = database.QueryRow(`Select *From users Where login=($1) and password=($2)`, login, password).Scan(
 		&UserA.Id,
@@ -39,6 +39,6 @@ func Login (database *sql.DB, login, password string){
 		&UserA.Password,
 		&UserA.Role,
 		&UserA.Remove)
-	fmt.Println(UserA)
+	fmt.Printf("%s", UserA)
 }
 

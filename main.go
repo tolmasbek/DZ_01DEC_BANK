@@ -3,10 +3,9 @@ package main
 import (
 	"bank-t/database"
 	"bank-t/pkg/authorisation"
-	"bank-t/pkg/modules"
 	"database/sql"
 	"log"
-	_"mattn/go-sqlite3"
+	_ "mattn/go-sqlite3"
 )
 
 func main() {
@@ -21,7 +20,7 @@ func main() {
 
 func Start(db *sql.DB){
 	for{
-		login, password := authorisation.Authorisation(db)
-		modules.Login(db, login, password)
+		login, password, role := authorisation.Authorisation(db)
+		authorisation.UserAdmin(db, login, password, role)
 	}
 }

@@ -2,8 +2,11 @@ package authorisation
 
 import (
 	"bank-t/pkg/modules"
+	"bufio"
 	"database/sql"
 	"fmt"
+	"log"
+	"os"
 )
 
 func AddUser(db *sql.DB)  {
@@ -54,18 +57,23 @@ func AddCurrency(db *sql.DB) {
 }
 
 func AddAtm(db *sql.DB) {
-	var addr string
-	var st bool
-	st = true
 	fmt.Println("Введите адрес: ")
-	fmt.Scan(&addr)
-	newAtm := modules.Atm{
-		Id:      0,
-		Address: addr,
-		Status:  st,
+	var s string
+	fmt.Scan(&s)
+	reader := bufio.NewReader(os.Stdin)
+	address, err := reader.ReadString('\n')
+	if err != nil{
+		log.Fatalf("Can't read command: %v", err)
 	}
-	modules.AddATM(db, newAtm)
-
+	fmt.Println(s)
+	sprintf := fmt.Sprintf("%s %s", s, address)  // Объединяет введенные данные в одну строку
+	fmt.Printf("Был добавлен АТМ по адресу: %s %s\n", s, address)
+	_, err = modules.AddATM(db, sprintf)
+	if err != nil{
+		fmt.Println("Vse ploho")
+		return
+	}
+	fmt.Println("Vse Ok")
 }
 
 func AddAccount (db *sql.DB){
