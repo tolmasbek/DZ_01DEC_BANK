@@ -21,6 +21,6 @@ func main() {
 func Start(db *sql.DB) {
 	for {
 		login, password, role := authorisation.Authorisation(db)
-		authorisation.UserAdmin(db, login, password, role)
+		authorisation.GetLoginPassUserOrAdmin(db, login, password, role)
 	}
 }

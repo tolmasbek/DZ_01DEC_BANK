@@ -32,3 +32,23 @@ const CreateTableCurrencies = `create table if not exists currencies(
 	id 			integer primary key autoincrement,
 	nameCurr 	text 
 );`
+
+const CreateTableTransactions = `create table if not exists transactions(
+	id 					integer primary key autoincrement,
+	accNumbSender  		integer not null,
+	accNumbAddressee  	integer not null,
+	translatedSum		integer not null,
+	date				text not null,
+	time				text not null
+);`
+
+const CreateTableSrvcs = `create table if not exists services(
+	id 			integer primary key autoincrement,
+	NameSrv  	text not null,
+	AccNumb  	integer not null,
+	SumRemoved  integer,
+	SumFilled	integer,
+	date		text not null,
+	time		text not null
+);`
+

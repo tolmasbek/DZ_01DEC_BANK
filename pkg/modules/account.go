@@ -4,6 +4,7 @@ import (
 	"bank-t/database"
 	"database/sql"
 	"fmt"
+	"os"
 )
 
 type Account struct {
@@ -17,7 +18,13 @@ type Account struct {
 }
 
 func AddNewAccount(dataBase *sql.DB, accounts Account) (err error) {
-	_, err = dataBase.Exec(database.AddNewAcc, accounts.UserId, accounts.NumberAcc, accounts.Amount, accounts.Currency, accounts.Pin, accounts.Remove)
+	_, err = dataBase.Exec(database.AddNewAcc,
+		accounts.UserId,
+		accounts.NumberAcc,
+		accounts.Amount,
+		accounts.Currency,
+		accounts.Pin,
+		accounts.Remove)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -26,15 +33,31 @@ func AddNewAccount(dataBase *sql.DB, accounts Account) (err error) {
 
 func ShowAcc(dataBase *sql.DB, pin int64) {
 	var Acc Account
-	_ = dataBase.QueryRow(`Select *From accounts Where pin=($1)`, pin).Scan(
+	row := dataBase.QueryRow(database.ShowDataAcc, pin)
+	err := row.Scan(
 		&Acc.Id,
-		&Acc.UserId,
 		&Acc.NumberAcc,
 		&Acc.Amount,
-		&Acc.Currency,
 		&Acc.Pin,
-		&Acc.Remove)
-		if Acc.Pin == pin {
-			fmt.Println(Acc)
-		}
+	)
+	if err != nil {
+		fmt.Println("Неверный PIN код: ", err)
+	}
+	if Acc.Pin == pin {
+		fmt.Println(Acc)
+	} else {
+		fmt.Println("Введите заново PIN код")
+	}
+}
+
+func ChekAccountNumber(dbase *sql.DB, num1 int64) {
+	var numAcc Account
+	err := dbase.QueryRow(database.ChekNumAcc, num1).Scan(&numAcc.NumberAcc)
+	if numAcc.NumberAcc != num1 {
+		fmt.Println("Неверный номер аккаунта ChekAccountNumber")
+		os.Exit(0)
+	}
+	if err != nil {
+		fmt.Println("Ошибка в AddTransaction", err)
+	}
 }

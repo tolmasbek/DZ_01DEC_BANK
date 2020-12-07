@@ -19,9 +19,17 @@ type User struct {
 }
 
 func AddNewUser(db *sql.DB, user User) (ok bool, err error) {
-	_, err = db.Exec(database.AddNewUser, user.FirstName, user.LastName, user.Age, user.Gender, user.Login, user.Password, user.Role, user.Remove)
+	_, err = db.Exec(database.AddNewUser,
+		user.FirstName,
+		user.LastName,
+		user.Age,
+		user.Gender,
+		user.Login,
+		user.Password,
+		user.Role,
+		user.Remove)
 	if err != nil {
-		fmt.Println("Can't insert to ATMs table new address, err is", err)
+		fmt.Println("Can't inserted, err is", err)
 		return false, err
 	}
 	return true, nil

@@ -1,6 +1,7 @@
 package authorisation
 
 import (
+	"bank-t/database"
 	"bank-t/pkg/modules"
 	"bufio"
 	"database/sql"
@@ -8,6 +9,26 @@ import (
 	"log"
 	"os"
 )
+
+func GetLoginPassUserOrAdmin(db *sql.DB, login, password, role string) {
+	var UserA modules.User
+	_ = db.QueryRow(database.GetLoginPass, login, password, role).Scan(
+		&UserA.Login,
+		&UserA.Password,
+		&UserA.Role,
+	)
+	role = UserA.Role
+	switch role {
+	case "admin":
+		AdminWin(db, UserA)
+
+	case "user":
+		UserWin(db, UserA)
+
+	default:
+		fmt.Println("Повторите попытку!!!")
+	}
+}
 
 func AddUser(db *sql.DB) {
 	fmt.Println("Введите данные: ")

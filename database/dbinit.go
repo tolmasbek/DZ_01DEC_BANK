@@ -6,7 +6,7 @@ import (
 )
 
 func DbInit(db *sql.DB) {
-	Tables := []string{CreateTableUsers, CreateTableAccounts, CreateTableCurrencies, CreateTableATMs}
+	Tables := []string{CreateTableUsers, CreateTableAccounts, CreateTableCurrencies, CreateTableATMs, CreateTableTransactions, CreateTableSrvcs}
 	for _, ddl := range Tables {
 		_, err := db.Exec(ddl)
 		if err != nil {
