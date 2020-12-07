@@ -51,4 +51,3 @@ const CreateTableSrvcs = `create table if not exists services(
 	date		text not null,
 	time		text not null
 );`
-

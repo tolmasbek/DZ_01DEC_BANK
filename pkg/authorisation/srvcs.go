@@ -15,14 +15,14 @@ type Payment struct {
 	SumRemoved int64
 	SumFilled  int64
 	Date       string
-	TimePay       string
+	TimePay    string
 }
 
 const ChoiceServices = `Наши услуги: 
 	Пополнить счет вашего аккаунта
 	Снятие со счета`
 
-func SrvcWin(dab *sql.DB)  {
+func SrvcWin(dab *sql.DB) {
 	fmt.Println(ChoiceServices)
 	var nameSer, data, vremya string
 	var svoySchet = "1. Пополнить свой счет"
@@ -38,15 +38,15 @@ func SrvcWin(dab *sql.DB)  {
 	ChekAccountNumber(dab, accountNum, pinc)
 	var chServ int64
 	fmt.Println("Выберите услугу: ")
-	fmt.Println(svoySchet,"\n",snyatSchet)
+	fmt.Println(svoySchet, "\n", snyatSchet)
 	fmt.Scan(&chServ)
-	if chServ == 1{
+	if chServ == 1 {
 		nameSer = svoySchet
 		fmt.Println("Введите сумму для пополнения:")
 		fmt.Scan(&popolnSum)
 		AddPayment(dab, popolnSum, accountNum)
 	}
-	if chServ == 2{
+	if chServ == 2 {
 		nameSer = snyatSchet
 		fmt.Println("Введите сумму для снятия:")
 		fmt.Scan(&snyatSum)
@@ -90,7 +90,7 @@ func AddNewSrvc(db *sql.DB, pay Payment) (ok bool, err error) {
 	return true, nil
 }
 
-func AddPayment(db *sql.DB, summ, num int64)  {
+func AddPayment(db *sql.DB, summ, num int64) {
 	var addPay modules.Account
 	err1 := db.QueryRow(database.TransferToAcc, summ, num).Scan(
 		&addPay.NumberAcc,
@@ -101,7 +101,7 @@ func AddPayment(db *sql.DB, summ, num int64)  {
 	}
 }
 
-func SubPayment(db *sql.DB, summ1, num1 int64)  {
+func SubPayment(db *sql.DB, summ1, num1 int64) {
 	var subPay modules.Account
 	err := db.QueryRow(database.TransferFromAcc, summ1, num1).Scan(
 		&subPay.NumberAcc,
