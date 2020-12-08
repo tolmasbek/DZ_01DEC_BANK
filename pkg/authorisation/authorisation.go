@@ -82,7 +82,6 @@ func AdminWin(db *sql.DB, admin modules.User) {
 		modules.ShowAcc(db, pinAdm)
 	case 7:
 		TransferWin(db)
-
 	case 0:
 		os.Exit(0)
 	default:
