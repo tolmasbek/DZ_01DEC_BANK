@@ -64,6 +64,7 @@ func AddUser(db *sql.DB) {
 	if err != nil {
 		fmt.Println("Can't insert to ATMs table new address, err is", err)
 	}
+	modules.FileRecordingJson(newUser)
 }
 
 func AddCurrency(db *sql.DB) {
