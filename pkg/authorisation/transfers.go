@@ -10,21 +10,31 @@ import (
 )
 
 func TransfersFromAccInAcc(dbase *sql.DB, sum, numAcc1, numAcc2 int64) {
-	var trFromAccInAcc1 modules.Account
-	err := dbase.QueryRow(database.TransferFromAcc, sum, numAcc1).Scan(
-		&trFromAccInAcc1.NumberAcc,
-		&trFromAccInAcc1.Amount,
-	)
+	tx, err := dbase.Begin()
 	if err != nil {
-		fmt.Println("Ошибка в TransfersFromAcc", err)
+		return
 	}
-
-	err1 := dbase.QueryRow(database.TransferToAcc, sum, numAcc2).Scan(
+	defer func() {
+		if err != nil {
+			_ = tx.Rollback()
+			return
+		}
+		err = tx.Commit()
+	}()
+	var trFromAccInAcc1 modules.Account
+	err1 := tx.QueryRow(database.TransferFromAcc, sum, numAcc1).Scan(
 		&trFromAccInAcc1.NumberAcc,
 		&trFromAccInAcc1.Amount,
 	)
 	if err1 != nil {
-		fmt.Println("Ошибка в TransfersInAcc", err1)
+		fmt.Println("Ошибка в TransfersFromAcc", err1)
+	}
+	err2 := tx.QueryRow(database.TransferToAcc, sum, numAcc2).Scan(
+		&trFromAccInAcc1.NumberAcc,
+		&trFromAccInAcc1.Amount,
+	)
+	if err2 != nil {
+		fmt.Println("Ошибка в TransfersInAcc", err2)
 	}
 }
 

@@ -1,1 +1,11 @@
-{"id":0,"first_name":"Далер","last_name":"Маликов","age":18,"gender":"М","login":"9999d","password":"123456","role":"user","remove":true}
+{
+ "id": 0,
+ "first_name": "Хасан",
+ "last_name": "Обилзода",
+ "age": 18,
+ "gender": "М",
+ "login": "рфыфт2002",
+ "password": "4321",
+ "role": "user",
+ "remove": true
+}
