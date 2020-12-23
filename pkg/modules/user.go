@@ -7,15 +7,15 @@ import (
 )
 
 type User struct {
-	Id        int64  `json:"id"`
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
-	Age       int64  `json:"age"`
-	Gender    string `json:"gender"`
-	Login     string `json:"login"`
-	Password  string `json:"password"`
-	Role      string `json:"role"`
-	Remove    bool   `json:"remove"`
+	Id        int64  `json:"id" 		xml:"id"`
+	FirstName string `json:"first_name" xml:"first_name"`
+	LastName  string `json:"last_name" 	xml:"last_name"`
+	Age       int64  `json:"age" 		xml:"age"`
+	Gender    string `json:"gender" 	xml:"gender"`
+	Login     string `json:"login" 		xml:"login"`
+	Password  string `json:"password" 	xml:"password"`
+	Role      string `json:"role" 		xml:"role"`
+	Remove    bool   `json:"remove" 	xml:"remove"`
 }
 
 func AddNewUser(db *sql.DB, user User) (ok bool, err error) {

@@ -18,9 +18,9 @@ func main() {
 	Start(db)
 }
 
-func Start(db *sql.DB) {
+func Start(datab *sql.DB) {
 	for {
-		login, password, role := authorisation.Authorisation(db)
-		authorisation.GetLoginPassUserOrAdmin(db, login, password, role)
+		login, password, role := authorisation.Authorisation(datab)
+		authorisation.GetLoginPassUserOrAdmin(datab, login, password, role)
 	}
 }

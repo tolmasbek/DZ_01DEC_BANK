@@ -1,0 +1,11 @@
+<User>
+ <Id>0</Id>
+ <first_name>rrr</first_name>
+ <LastName>ee</LastName>
+ <Age>23</Age>
+ <Gender>v</Gender>
+ <Login>12</Login>
+ <Password>3</Password>
+ <Role>user</Role>
+ <Remove>true</Remove>
+</User>

@@ -64,7 +64,10 @@ func AddUser(db *sql.DB) {
 	if err != nil {
 		fmt.Println("Can't insert to ATMs table new address, err is", err)
 	}
-	modules.FileRecordingJson(newUser)
+	modules.FileRecordingJSON(newUser)
+	modules.FileRecordingXML(newUser)
+	modules.Zipit("users.json", "C:/Users/ftt/go/src/bank-t/usZip.zip")
+	modules.Unzip("usZip.zip", "C:/Users/ftt/go/src/bank-t")
 }
 
 func AddCurrency(db *sql.DB) {
